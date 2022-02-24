@@ -1,0 +1,60 @@
+﻿@model SkysMvcCatShop.ViewModels.ProductEditViewModel
+
+@{
+    ViewData["Title"] = "Edit " + @Model.Name;
+}
+
+<div class="card">
+    <div class="card-header">
+        <h1>Edit product</h1>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Name">Name</label>
+                <input class="form-control" asp-for="Name">
+                <span asp-validation-for="Name" class="field-validation-error"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Color">Color</label>
+                <input class="form-control" asp-for="Color">
+                <span asp-validation-for="Color" class="field-validation-error"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="Price">Price</label>
+                <input class="form-control" asp-for="Price">
+                <span asp-validation-for="Price" class="field-validation-error"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Created">Date Created</label>
+                <input class="form-control" asp-for="Created">
+                <span asp-validation-for="Created" class="field-validation-error"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="LastBought">Last Bought</label>
+                <input class="form-control" asp-for="LastBought">
+                <span asp-validation-for="LastBought" class="field-validation-error"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ean13">Barcode</label>
+                <input class="form-control" asp-for="Ean13">
+                <span asp-validation-for="Ean13" class="field-validation-error"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PopularityPercent">Popularity Percent</label>
+                <input class="form-control" asp-for="PopularityPercent">
+                <span asp-validation-for="PopularityPercent" class="field-validation-error"></span>
+            </div>
+            
+        
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+
+    </div>
+</div>
+
+
+@section scripts
+{
+    <partial name="_ValidationScriptsPartial"/>
+}  
