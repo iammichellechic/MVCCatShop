@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SkysMvcCatShop.Data;
 using SkysMvcCatShop.Infrastracture.Paging;
 using SkysMvcCatShop.ViewModels;
@@ -15,11 +16,19 @@ namespace SkysMvcCatShop.Controllers
             _context = context;         
         }
 
-        public IActionResult Index(int page=1)
+        //public IActionResult Index(int page=1)
+        //{
+        //    var productList = _context.Products.GetPaged(page, 30);
+        //    return View(productList);
+        //}
+
+        public async Task<IActionResult> Index(int? pageNumber)
         {
-            var productList = _context.Products.GetPaged(page, 30);
-            return View(productList);
+            var products=_context.Products;
+            int pageSize = 30;
+            return View(await PaginatedList<Product>.CreateAsync(products.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
+
 
         [HttpPost]
         public IActionResult Edit(int productId, ProductEditViewModel viewModel)

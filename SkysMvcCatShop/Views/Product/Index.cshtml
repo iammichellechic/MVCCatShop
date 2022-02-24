@@ -1,5 +1,5 @@
 ﻿@using SkysMvcCatShop.Infrastracture.Paging
-@model PagedResult<SkysMvcCatShop.Data.Product>
+@model PaginatedList<SkysMvcCatShop.Data.Product>
 @{
     ViewData["Title"] = "Products";
 }
@@ -34,13 +34,10 @@
                 <th></th>
 
             </tr>
-            @{
-                var i = 1;
-            }
-            @foreach (var product in Model.Results)
+
+            @foreach (var product in Model)
             {
-                var rowNo = (Model.CurrentPage - 1) * Model.PageSize + i;
-                i++;
+
                 <tr>
                     <td width="10%">@product.Id</td>
                     <td width="10%">@product.Name</td>
@@ -57,43 +54,25 @@
                 </tr>
             }
 
-     @*       <tr>
-                <td>
-
-                    @if (Model.CurrentPage < 1)
-                    {
-                        <a class="btn btn-secondary"
-                       asp-page=""
-                       asp-route-pageno="@(Model.CurrentPage - 1)">Prev</a>
-                    }
-                </td>
-                <td colspan="2">
-                    @for (int i = 1; i <= Model.PageCount; i++)
-                    {
-                        string theClass = "btn-secondary";
-                        if (i == @Model.CurrentPage)
-                        {
-                            theClass = "btn-primary";
-                        }
-
-                        <a class="btn @theClass"
-                       asp-page=""
-                       asp-route-pageno="@i">@i</a>
-                    }
-                </td>
-                <td>
-
-
-                    <a class="btn btn-secondary" asp-page="" asp-route-pageno="@(Model.CurrentPage + 1)">Next</a>
-
-                </td>
-            </tr>*@
 
         </table>
-        @for (var p = 1; p <= Model.PageCount; p++)
-        {
-            <a href="@Url.Action("Index", new { page = p })" class="btn btn-default">@p</a>
+       
+
+        @{
+            var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+            var nextDisabled = !Model.HasNextPage ? "disabled" : "";
         }
+
+        <a asp-action="Index"
+           asp-route-pageNumber="@(Model.PageIndex - 1)"
+           class="btn btn-default @prevDisabled">
+            Previous
+        </a>
+        <a asp-action="Index"
+           asp-route-pageNumber="@(Model.PageIndex + 1)"
+           class="btn btn-default @nextDisabled">
+            Next
+        </a>
 
     </div>
 </div>
